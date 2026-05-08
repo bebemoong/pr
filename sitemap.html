@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Course Sitemap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #212529;
+        }
+
+        .subtitle {
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+        .search-filter {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        input[type="search"] {
+            width: 100%;
+            padding: 0.6rem 0.6rem 0.6rem 2.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input[type="search"]:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        select {
+            padding: 0.6rem 2rem 0.6rem 0.8rem;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: white;
+            cursor: pointer;
+            font-family: inherit;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .filter-group {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .result-count {
+            color: #6c757d;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card-image {
+            width: 100%;
+            aspect-ratio: 16/9;
+            object-fit: cover;
+            background-color: #e9ecef;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.05);
+        }
+
+        .card-image-wrapper {
+            overflow: hidden;
+            background-color: #e9ecef;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #212529;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-icon {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            color: #6c757d;
+            flex-shrink: 0;
+        }
+
+        .card:hover .card-icon {
+            opacity: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.6rem;
+            background-color: #e9ecef;
+            color: #495057;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-description {
+            color: #6c757d;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 0.75rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.5rem;
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border-radius: 3px;
+            font-size: 0.7rem;
+        }
+
+        .tag-icon {
+            width: 10px;
+            height: 10px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #6c757d;
+        }
+
+        @media (max-width: 768px) {
+            .search-filter {
+                flex-direction: column;
+            }
+
+            .search-box {
+                width: 100%;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            select {
+                width: 100%;
+            }
+
+            .grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>E-Learning Course Sitemap</h1>
+            <p class="subtitle">온라인 교육 과정을 한눈에 확인하세요</p>
+        </header>
+
+        <div class="search-filter">
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="search" id="searchInput" placeholder="코스 검색...">
+            </div>
+            <div class="filter-group">
+                <select id="categoryFilter">
+                    <option value="all">전체 카테고리</option>
+                </select>
+                <select id="sortSelect">
+                    <option value="title">제목 A-Z</option>
+                    <option value="title-desc">제목 Z-A</option>
+                    <option value="category">카테고리 A-Z</option>
+                    <option value="category-desc">카테고리 Z-A</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="result-count" id="resultCount">
+            전체 <span id="count">0</span>개의 코스
+        </div>
+
+        <div class="grid" id="courseGrid"></div>
+    </div>
+
+    <script>
+        const courses = [
+            {
+                id: 1,
+                title: "웹 개발 입문",
+                category: "프로그래밍",
+                thumbnail: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=400&fit=crop",
+                description: "HTML, CSS, JavaScript를 활용한 웹사이트 제작 기초부터 배웁니다.",
+                url: "#",
+                tags: ["HTML", "CSS", "JavaScript", "초급"]
+            },
+            {
+                id: 2,
+                title: "파이썬 데이터 분석",
+                category: "데이터 사이언스",
+                thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+                description: "Pandas, NumPy를 활용한 데이터 분석과 시각화 방법을 배웁니다.",
+                url: "#",
+                tags: ["Python", "데이터분석", "Pandas", "중급"]
+            },
+            {
+                id: 3,
+                title: "UI/UX 디자인 원칙",
+                category: "디자인",
+                thumbnail: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=400&fit=crop",
+                description: "사용자 중심의 아름답고 편리한 인터페이스 디자인을 배웁니다.",
+                url: "#",
+                tags: ["디자인", "UX", "Figma", "초급"]
+            },
+            {
+                id: 4,
+                title: "머신러닝 기초",
+                category: "인공지능",
+                thumbnail: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
+                description: "기계학습 알고리즘과 딥러닝의 핵심 개념을 실습과 함께 학습합니다.",
+                url: "#",
+                tags: ["ML", "AI", "TensorFlow", "고급"]
+            },
+            {
+                id: 5,
+                title: "디지털 마케팅 전략",
+                category: "마케팅",
+                thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+                description: "SEO, SNS 마케팅, 콘텐츠 마케팅 전략을 실전에서 활용합니다.",
+                url: "#",
+                tags: ["마케팅", "SEO", "SNS", "초급"]
+            },
+            {
+                id: 6,
+                title: "React Native 앱 개발",
+                category: "프로그래밍",
+                thumbnail: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=600&h=400&fit=crop",
+                description: "React Native로 iOS와 Android 앱을 동시에 개발하는 방법을 배웁니다.",
+                url: "#",
+                tags: ["React Native", "모바일", "JavaScript", "중급"]
+            },
+            {
+                id: 7,
+                title: "재무 분석 및 모델링",
+                category: "비즈니스",
+                thumbnail: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop",
+                description: "전문가가 사용하는 재무 모델링과 분석 기법을 마스터합니다.",
+                url: "#",
+                tags: ["재무", "Excel", "모델링", "중급"]
+            },
+            {
+                id: 8,
+                title: "AWS 클라우드 컴퓨팅",
+                category: "클라우드 & DevOps",
+                thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=400&fit=crop",
+                description: "AWS 서비스와 클라우드 아키텍처, 배포 전략을 실습합니다.",
+                url: "#",
+                tags: ["AWS", "Cloud", "DevOps", "고급"]
+            },
+            {
+                id: 9,
+                title: "사진 촬영 마스터클래스",
+                category: "크리에이티브",
+                thumbnail: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600&h=400&fit=crop",
+                description: "구도, 조명, 후보정 등 전문 사진 촬영 기법을 배웁니다.",
+                url: "#",
+                tags: ["사진", "Lightroom", "창작", "초급"]
+            },
+            {
+                id: 10,
+                title: "사이버 보안 필수",
+                category: "IT & 보안",
+                thumbnail: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&h=400&fit=crop",
+                description: "시스템과 네트워크를 보호하는 필수 보안 기술을 학습합니다.",
+                url: "#",
+                tags: ["보안", "네트워킹", "해킹", "중급"]
+            },
+            {
+                id: 11,
+                title: "프로젝트 관리 전문가",
+                category: "비즈니스",
+                thumbnail: "https://images.unsplash.com/photo-1507925921958-8a62f3d1a50d?w=600&h=400&fit=crop",
+                description: "애자일, 스크럼 방법론과 PMP 자격증 준비를 함께합니다.",
+                url: "#",
+                tags: ["PM", "Agile", "Scrum", "중급"]
+            },
+            {
+                id: 12,
+                title: "블록체인 & 암호화폐",
+                category: "기술",
+                thumbnail: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=600&h=400&fit=crop",
+                description: "블록체인 기술과 스마트 컨트랙트, 암호화폐 기초를 배웁니다.",
+                url: "#",
+                tags: ["블록체인", "암호화폐", "Web3", "고급"]
+            }
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const sortSelect = document.getElementById('sortSelect');
+        const courseGrid = document.getElementById('courseGrid');
+        const countElement = document.getElementById('count');
+
+        function initCategories() {
+            const categories = [...new Set(courses.map(course => course.category))].sort();
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+        }
+
+        function createCardHTML(course) {
+            const visibleTags = course.tags.slice(0, 3);
+            const remainingCount = course.tags.length - 3;
+
+            return `
+                <div class="card" onclick="alert('${course.title} 페이지로 이동합니다')">
+                    <div class="card-image-wrapper">
+                        <img src="${course.thumbnail}" alt="${course.title}" class="card-image">
+                    </div>
+                    <div class="card-content">
+                        <div class="card-header">
+                            <h3 class="card-title">${course.title}</h3>
+                            <span class="card-icon">↗</span>
+                        </div>
+                        <div class="badge">${course.category}</div>
+                        <p class="card-description">${course.description}</p>
+                        <div class="tags">
+                            ${visibleTags.map(tag => `
+                                <span class="tag">
+                                    <span class="tag-icon">🏷️</span>
+                                    ${tag}
+                                </span>
+                            `).join('')}
+                            ${remainingCount > 0 ? `<span class="tag">+${remainingCount}</span>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function filterAndSortCourses() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCategory = categoryFilter.value;
+            const sortBy = sortSelect.value;
+
+            let filtered = courses.filter(course => {
+                const matchesSearch =
+                    course.title.toLowerCase().includes(searchTerm) ||
+                    course.description.toLowerCase().includes(searchTerm) ||
+                    course.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+
+                const matchesCategory = selectedCategory === 'all' || course.category === selectedCategory;
+
+                return matchesSearch && matchesCategory;
+            });
+
+            filtered.sort((a, b) => {
+                switch(sortBy) {
+                    case 'title':
+                        return a.title.localeCompare(b.title, 'ko');
+                    case 'title-desc':
+                        return b.title.localeCompare(a.title, 'ko');
+                    case 'category':
+                        return a.category.localeCompare(b.category, 'ko');
+                    case 'category-desc':
+                        return b.category.localeCompare(a.category, 'ko');
+                    default:
+                        return 0;
+                }
+            });
+
+            renderCourses(filtered);
+        }
+
+        function renderCourses(coursesToRender) {
+            countElement.textContent = coursesToRender.length;
+
+            if (coursesToRender.length === 0) {
+                courseGrid.innerHTML = '<div class="empty-state">검색 결과가 없습니다.</div>';
+                return;
+            }
+
+            courseGrid.innerHTML = coursesToRender.map(course => createCardHTML(course)).join('');
+        }
+
+        searchInput.addEventListener('input', filterAndSortCourses);
+        categoryFilter.addEventListener('change', filterAndSortCourses);
+        sortSelect.addEventListener('change', filterAndSortCourses);
+
+        initCategories();
+        filterAndSortCourses();
+    </script>
+</body>
+</html>
