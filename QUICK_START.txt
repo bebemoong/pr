@@ -1,0 +1,45 @@
+========================================
+GitHub에 올리는 방법 (복사해서 사용하세요)
+========================================
+
+1. GitHub에서 새 저장소 만들기
+   - github.com 접속 → 로그인
+   - 오른쪽 상단 "+" → "New repository"
+   - 저장소 이름 입력 (예: elearning-sitemap)
+   - "Create repository" 클릭
+
+2. 아래 명령어를 터미널에서 실행
+   (your-username을 실제 GitHub 아이디로 변경!)
+
+========================================
+복사용 명령어:
+========================================
+
+git init
+git add .
+git commit -m "Initial commit: E-learning sitemap"
+git branch -M main
+git remote add origin https://github.com/your-username/elearning-sitemap.git
+git push -u origin main
+
+========================================
+수정 후 다시 업로드:
+========================================
+
+git add .
+git commit -m "Update: 내용 수정"
+git push
+
+========================================
+배포하기 (선택사항):
+========================================
+
+Vercel 추천 (무료):
+1. vercel.com 접속
+2. GitHub 연결
+3. 저장소 선택
+4. 자동 배포 완료!
+
+자세한 내용은 DEPLOYMENT.md 참조
+
+========================================
